@@ -63,13 +63,14 @@ class ControlNetUnit:
         resize_mode: str = "Resize and Fill",
         lowvram: bool = False,
         processor_res: int = 512,
+        weight_type: str = 'normal'
         threshold_a: float = 64,
         threshold_b: float = 64,
         guidance: float = None, # deprecated: use guidance_end
         guidance_start: float = 0.0,
         guidance_end: float = 1.0,
         control_mode: int = 0,
-        pixel_perfect: bool = False,
+        pixel_perfect: bool = True,
         guessmode: int = None,  # deprecated: use control_mode
         hr_option: str = "Both", # Both, Low res only, High res only
     ):
@@ -78,13 +79,14 @@ class ControlNetUnit:
         self.module = module
         self.model = model
         self.weight = weight
-        self.resize_mode = resize_mode
+        self.resize_mode = resize_modeS
         self.lowvram = lowvram
         self.processor_res = processor_res
         self.threshold_a = threshold_a
         self.threshold_b = threshold_b
         self.guidance_start = guidance_start
         self.guidance_end = guidance_end
+        self.weight_type = weight_type
         if guidance:
             print(
                 "ControlNetUnit guidance is deprecated. Please use guidance_end instead."
@@ -123,6 +125,7 @@ class ControlNetUnit:
             "guidance": self.guidance_end,
             "guidance_start": self.guidance_start,
             "guidance_end": self.guidance_end,
+            "weight_type": self.weight_type,
             "control_mode": self.control_mode,
             "pixel_perfect": self.pixel_perfect,
             "hr_option": self.hr_option,
@@ -1752,7 +1755,7 @@ class SegmentAnythingInterface:
             sam_model_name: str = "sam_vit_h_4b8939.pth",
             processor: str = "seg_ofade20k",
             processor_res: int = 512,
-            pixel_perfect: bool = False,
+            pixel_perfect: bool = True,
             resize_mode: Optional[int] = 1,
             target_width: Optional[int] = None,
             target_height: Optional[int] = None,
