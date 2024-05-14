@@ -529,6 +529,9 @@ class WebUIApi:
         seed_resize_from_h=0,
         seed_resize_from_w=0,
         sampler_name=None,  # use this instead of sampler_index
+        scheduler=None,
+        hr_sampler_name=None,
+        hr_scheduler=None,
         batch_size=1,
         n_iter=1,
         steps=None,
